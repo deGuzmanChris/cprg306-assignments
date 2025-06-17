@@ -36,31 +36,44 @@ export default function Counter() {
     }
     const handleNewItem = (event) => {
         event.preventDefault();
-        
-       
+    
+    
         alert("Added Item: " + itemName + ", Quantity: " + quantity + ", Category: " + category);
-        
-        // Reset the form
+    
         setItemName("");
         setQuantity(1);
         setCategory("Produce");
     }
+    
+    let inputStyle ="flex flex-row justify-center items-center m-4 bg-gray-300 max-w-sm border-2 border-black rounded-lg";
 
     return(
         <main className="flex justify-center items-center h-screen bg-gray-400">
-            <form onSubmit={handleNewItem}>
+            <form onSubmit={handleNewItem} className="">
                 <div>
-                    <input type="text" value={itemName} onChange={handleNameChange} placeholder="Item name" className=" flex flex-row justify-center items-center m-4 bg-gray-300 max-w-sm border-2 border-black rounded-lg" required={true} />
+                    <input
+                        type="text"
+                        value={itemName}
+                        onChange={handleNameChange}
+                        placeholder="Item name"
+                        className={inputStyle}
+                        required
+                    />
                 </div>
 
-                <div className=" flex flex-row justify-center items-center m-4 bg-gray-300 max-w-sm border-2 border-black rounded-lg">
+                <div className={inputStyle}>
                     <p className="p-2">{quantity}</p>
-                    <button onClick={decrement} className={decButtonStyle}>-</button>
-                    <button onClick={increment} className={incButtonStyle}>+</button>
+                    <button type="button" onClick={decrement} className={decButtonStyle}>-</button>
+                    <button type="button" onClick={increment} className={incButtonStyle}>+</button>
                 </div>
 
                 <div>
-                    <select onChange={handleCategoryChange} value={category} className=" flex flex-row justify-center items-center m-4 bg-gray-300 max-w-sm border-2 border-black rounded-lg">
+                    <select
+                        onChange={handleCategoryChange}
+                        value={category}
+                        className={inputStyle}
+                        required
+                    >
                         <option disabled value="">Category</option>
                         <option value="Produce">Produce</option>
                         <option value="Dairy">Dairy</option>
@@ -75,8 +88,11 @@ export default function Counter() {
                         <option value="Other">Other</option>
                     </select>
                 </div>
-                <div className=" flex flex-row justify-center items-center m-4 bg-gray-300 max-w-sm border-2 border-black rounded-lg">
-                    <button onClick={handleNewItem} className=" flex flex-row justify-center items-center m-4 p-5-10 bg-gray-300 max-w-sm border-2 border-black rounded-lg" >+</button>
+                <div>
+                    <button
+                        type="submit"
+                        className={inputStyle}
+                    >+</button>
                 </div>
             </form>
         </main>
