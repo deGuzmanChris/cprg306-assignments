@@ -45,53 +45,53 @@ export default function Counter() {
         setCategory("Produce");
     }
     
-    let inputStyle ="flex flex-row justify-center items-center m-4 bg-gray-300 max-w-sm border-2 border-black rounded-lg";
+    
 
     return(
-        <main className="flex justify-center items-center h-screen bg-gray-400">
-            <form onSubmit={handleNewItem} className="">
-                <div>
+        <main className="flex justify-center items-center h-screen bg-gray-400 border-2 m-10">
+            <form  onSubmit={handleNewItem}>
+                <div className="flex flex-row justify-center items-center bg-gray-300 border-2 border-black rounded-lg">
                     <input
                         type="text"
                         value={itemName}
                         onChange={handleNameChange}
                         placeholder="Item name"
-                        className={inputStyle}
                         required
                     />
                 </div>
+                <div className="flex flex-row justify-center items-center">
+                    <div className="flex flex-row justify-center items-center m-4 bg-gray-300 border-2 border-black rounded-lg">
+                        <p className="p-2">{quantity}</p>
+                        <button type="button" onClick={decrement} className={decButtonStyle}>-</button>
+                        <button type="button" onClick={increment} className={incButtonStyle}>+</button>
+                    </div>
 
-                <div className={inputStyle}>
-                    <p className="p-2">{quantity}</p>
-                    <button type="button" onClick={decrement} className={decButtonStyle}>-</button>
-                    <button type="button" onClick={increment} className={incButtonStyle}>+</button>
-                </div>
-
-                <div>
-                    <select
-                        onChange={handleCategoryChange}
-                        value={category}
-                        className={inputStyle}
-                        required
-                    >
-                        <option disabled value="">Category</option>
-                        <option value="Produce">Produce</option>
-                        <option value="Dairy">Dairy</option>
-                        <option value="Bakery">Bakery</option>
-                        <option value="Meat">Meat</option>
-                        <option value="Frozen Foods">Frozen Foods</option>
-                        <option value="Canned Goods">Canned Goods</option>
-                        <option value="Dry Goods">Dry Goods</option>
-                        <option value="Beverages">Beverages</option>
-                        <option value="Snacks">Snacks</option>
-                        <option value="Household">Household</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div>
+                    <div className="flex flex-row justify-center items-center m-1 p-1 bg-gray-300 border-2 border-black rounded-lg">
+                        <select
+                            onChange={handleCategoryChange}
+                            value={category}
+                            
+                            required
+                        >
+                            <option disabled value="">Category</option>
+                            <option value="Produce">Produce</option>
+                            <option value="Dairy">Dairy</option>
+                            <option value="Bakery">Bakery</option>
+                            <option value="Meat">Meat</option>
+                            <option value="Frozen Foods">Frozen Foods</option>
+                            <option value="Canned Goods">Canned Goods</option>
+                            <option value="Dry Goods">Dry Goods</option>
+                            <option value="Beverages">Beverages</option>
+                            <option value="Snacks">Snacks</option>
+                            <option value="Household">Household</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>    
+                <div >
                     <button
                         type="submit"
-                        className={inputStyle}
+                        className="flex flex-row justify-center items-center m-4 px-30 bg-gray-300  border-2 border-black rounded-lg hover:bg-green-300"
                     >+</button>
                 </div>
             </form>
