@@ -16,7 +16,7 @@ export default function MealIdeas({ ingredient }) {
     return data.meals || [];
   };
 
- 
+  
   const fetchMealDetails = async (idMeal) => {
     const res = await fetch(
       `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`
@@ -25,6 +25,7 @@ export default function MealIdeas({ ingredient }) {
     return data.meals[0];
   };
 
+  
   useEffect(() => {
     const loadMealIdeas = async () => {
       setSelectedMeal(null); // reset selected meal
@@ -38,6 +39,7 @@ export default function MealIdeas({ ingredient }) {
     const details = await fetchMealDetails(meal.idMeal);
     setSelectedMeal(details);
   };
+
 
   const renderIngredients = (meal) => {
     if (!meal) return null;

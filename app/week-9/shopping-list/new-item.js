@@ -49,7 +49,7 @@ export default function NewItem({ onAddItem }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-4 m-4 w-50 border-2 border-black rounded-lg bg-gray-400"
+      className="p-4 m-4 w-50 border-2 border-black rounded-lg bg-gray-300"
     >
       <div className="mb-4">
         <label className="block font-bold mb-1">Name:</label>
@@ -57,7 +57,7 @@ export default function NewItem({ onAddItem }) {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border p-2 rounded w-full"
+          className="border p-2 bg-white rounded w-full"
           placeholder="item name"
           required
         />
@@ -81,7 +81,7 @@ export default function NewItem({ onAddItem }) {
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="border p-2 rounded w-full"
+          className="border bg-white p-2 rounded w-full"
         >
           <option disabled value="">
             Category

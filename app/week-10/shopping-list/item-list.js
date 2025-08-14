@@ -6,6 +6,7 @@ import Item from "./item";
 export default function ItemList({ items = [], onItemSelect }) {
   const [sortBy, setSortBy] = useState("name");
 
+ 
   const sortedItems = Array.isArray(items)
     ? [...items].sort((a, b) => {
         if (sortBy === "name") {
@@ -19,7 +20,7 @@ export default function ItemList({ items = [], onItemSelect }) {
 
   return (
     <div>
-   
+    
       <div className="p-4 m-4 flex">
         <button
           onClick={() => setSortBy("name")}
@@ -39,7 +40,7 @@ export default function ItemList({ items = [], onItemSelect }) {
         </button>
       </div>
 
- 
+      
       <ul>
         {sortedItems.map((item) => (
           <Item
@@ -47,7 +48,7 @@ export default function ItemList({ items = [], onItemSelect }) {
             name={item.name}
             quantity={item.quantity}
             category={item.category}
-            onSelect={() => onItemSelect(item)} 
+            onSelect={() => onItemSelect(item)} // click triggers parent handler
           />
         ))}
       </ul>
