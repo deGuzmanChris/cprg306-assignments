@@ -1,105 +1,109 @@
-"use client"
+
+"use client";
 import { useState } from "react";
 
-export default function Counter() {
-    const [itemName,setItemName] = useState("");
-    const [quantity,setQuantity] = useState(1);
-    const [category,setCategory] = useState("Produce");
+export default function NewItem({ onAddItem }) {
+  const [itemName, setItemName] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [category, setCategory] = useState("Produce");
 
+  const increment = () => {
+    if (quantity < 20) setQuantity(quantity + 1);
+  };
 
-    const increment =  () => {
-        let currentCount = quantity.valueOf();
-        if (currentCount <= 19) {
-            setQuantity(currentCount + 1);
-        }
-    }
-    const decrement = () => {
-        let currentCount = quantity.valueOf();
-        if (currentCount >= 2) {
-            setQuantity(currentCount - 1);
-        }
-    }
-    let incButtonStyle = "bg-blue-500 text-white p-2 m-2 rounded-lg";
-    if (quantity >= 20) {
-        incButtonStyle = "bg-gray-500 text-white p-2 m-2 rounded-lg";
-    }
-    let decButtonStyle = "bg-blue-500 text-white p-2 m-2 rounded-lg";
-    if (quantity <= 1) {
-        decButtonStyle = "bg-gray-500 text-white p-2 m-2 rounded-lg";
-    }
+  const decrement = () => {
+    if (quantity > 1) setQuantity(quantity - 1);
+  };
 
-    const handleNameChange = (event) => {
-        setItemName(event.target.value);
-    }
-    const handleCategoryChange = (event) => {
-        setCategory(event.target.value);
-    }
-    const handleNewItem = (event) => {
-        event.preventDefault();
-    
-    
-        alert("Added Item: " + itemName + ", Quantity: " + quantity + ", Category: " + category);
-    
-        setItemName("");
-        setQuantity(1);
-        setCategory("Produce");
-    }
-    
-    
+  let incButtonStyle =
+    quantity >= 20
+      ? "bg-gray-500 text-white p-2 m-1 rounded-lg cursor-not-allowed"
+      : "bg-blue-500 text-white p-2 m-1 rounded-lg hover:bg-blue-600";
 
-    return(
-        <main className="flex justify-center items-center h-screen bg-gray-400 border-2 m-10">
-            <form  onSubmit={handleNewItem}>
-                <div className="flex flex-row justify-center items-center bg-gray-300 border-2 border-black rounded-lg">
-                    <input
-                        type="text"
-                        value={itemName}
-                        onChange={handleNameChange}
-                        placeholder="Item name"
-                        required
-                    />
-                </div>
-                <div className="flex flex-row justify-center items-center">
-                    <div className="flex flex-row justify-center items-center m-4 bg-gray-300 border-2 border-black rounded-lg">
-                        <p className="p-2">{quantity}</p>
-                        <button type="button" onClick={decrement} className={decButtonStyle}>-</button>
-                        <button type="button" onClick={increment} className={incButtonStyle}>+</button>
-                    </div>
+  let decButtonStyle =
+    quantity <= 1
+      ? "bg-gray-500 text-white p-2 m-1 rounded-lg cursor-not-allowed"
+      : "bg-blue-500 text-white p-2 m-1 rounded-lg hover:bg-blue-600";
 
-                    <div className="flex flex-row justify-center items-center m-1 p-1 bg-gray-300 border-2 border-black rounded-lg">
-                        <select
-                            onChange={handleCategoryChange}
-                            value={category}
-                            
-                            required
-                        >
-                            <option disabled value="">Category</option>
-                            <option value="Produce">Produce</option>
-                            <option value="Dairy">Dairy</option>
-                            <option value="Bakery">Bakery</option>
-                            <option value="Meat">Meat</option>
-                            <option value="Frozen Foods">Frozen Foods</option>
-                            <option value="Canned Goods">Canned Goods</option>
-                            <option value="Dry Goods">Dry Goods</option>
-                            <option value="Beverages">Beverages</option>
-                            <option value="Snacks">Snacks</option>
-                            <option value="Household">Household</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>    
-                <div >
-                    <button
-                        type="submit"
-                        className="flex flex-row justify-center items-center m-4 px-30 bg-gray-300  border-2 border-black rounded-lg hover:bg-green-300"
-                    >+</button>
-                </div>
-            </form>
-        </main>
-    );
+  const handleNewItem = (event) => {
+    event.preventDefault();
 
+    const newItem = {
+      name: itemName,
+      quantity,
+      category,
+    };
 
+    if (onAddItem) onAddItem(newItem);
 
+    setItemName("");
+    setQuantity(1);
+    setCategory("Produce");
+  };
 
+  return (
+    <main className="flex justify-center items-center mt-6">
+      <form
+        onSubmit={handleNewItem}
+        className="bg-gray-100 border-2 border-black rounded-lg p-6 w-full max-w-md shadow-md"
+      >
+        {/* Item Name */}
+        <div className="mb-4">
+          <input
+            type="text"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+            placeholder="Item name"
+            required
+            className="border p-2 rounded w-full"
+          />
+        </div>
 
+        {/* Quantity and Category Row */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-4">
+          {/* Quantity Control */}
+          <div className="flex items-center justify-center bg-gray-200 border rounded-lg p-2">
+            <button type="button" onClick={decrement} className={decButtonStyle}>
+              -
+            </button>
+            <span className="px-4">{quantity}</span>
+            <button type="button" onClick={increment} className={incButtonStyle}>
+              +
+            </button>
+          </div>
+
+          {/* Category Select */}
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            required
+            className="border p-2 rounded w-full"
+          >
+            <option disabled value="">
+              Category
+            </option>
+            <option value="Produce">Produce</option>
+            <option value="Dairy">Dairy</option>
+            <option value="Bakery">Bakery</option>
+            <option value="Meat">Meat</option>
+            <option value="Frozen Foods">Frozen Foods</option>
+            <option value="Canned Goods">Canned Goods</option>
+            <option value="Dry Goods">Dry Goods</option>
+            <option value="Beverages">Beverages</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Household">Household</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        {/* Add Button */}
+        <button
+          type="submit"
+          className="bg-green-500 text-white p-2 w-full rounded-lg hover:bg-green-600"
+        >
+          Add Item
+        </button>
+      </form>
+    </main>
+  );
 }
